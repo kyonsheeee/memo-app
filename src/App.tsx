@@ -19,42 +19,28 @@ const App: React.FC = () => {
 
   const deleteMemo = (id: number) => {
     setMemos(memos.filter((memo) => memo.id !== id));
-  };
-
-  const startEditMemo = (id: number) => {
-    const memoToEdit = memos.find((memo) => memo.id === id);
-    if (memoToEdit) {
-      setCurrentMemo(memoToEdit);
-      setIsEditing(true);
-    }
-  };
-
-  const updateMemo = (text: string) => {
-    if (currentMemo) {
-      setMemos(
-        memos.map((memo) =>
-          memo.id === currentMemo.id ? { ...memo, text } : memo
-        )
-      );
+    if (currentMemo && currentMemo.id === id) {
       setCurrentMemo(null);
       setIsEditing(false);
     }
   };
 
+  const updateMemo = (id: number, text: string) => {
+    setMemos(memos.map((memo) => (memo.id === id ? { ...memo, text } : memo)));
+    setCurrentMemo(null);
+    setIsEditing(false);
+  };
+
   return (
-    <div>
+    <div className="container">
       <h1>Memo App</h1>
       <Form
         addMemo={addMemo}
         editMode={isEditing}
         currentText={currentMemo ? currentMemo.text : ""}
-        updateMemo={updateMemo}
+        updateMemo={(text) => updateMemo(currentMemo!.id, text)}
       />
-      <List
-        memos={memos}
-        deleteMemo={deleteMemo}
-        startEditMemo={startEditMemo}
-      />
+      <List memos={memos} deleteMemo={deleteMemo} updateMemo={updateMemo} />
     </div>
   );
 };

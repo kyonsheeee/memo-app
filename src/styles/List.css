@@ -12,6 +12,20 @@
   border-bottom: 1px solid #ccc;
 }
 
+.memo-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.editing-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
 .memo-text {
   flex-grow: 1;
   margin-right: 10px;
@@ -23,6 +37,17 @@
 }
 
 .memo-buttons button {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.editing-container input {
+  margin-right: 10px;
+  flex-grow: 1;
+}
+
+.editing-container button {
+  margin-left: 5px;
   padding: 5px;
   cursor: pointer;
 }

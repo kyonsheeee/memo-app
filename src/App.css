@@ -1,5 +1,22 @@
 body {
   font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
+}
+
+.container {
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 h1 {
