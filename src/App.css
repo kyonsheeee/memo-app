@@ -43,3 +43,7 @@ li button {
   padding: 5px;
   cursor: pointer;
 }
+
+li button:first-of-type {
+  background-color: green;
+}

@@ -1,16 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface FormProps {
   addMemo: (text: string) => void;
+  editMode?: boolean;
+  currentText?: string;
+  updateMemo?: (text: string) => void;
 }
 
-const Form: React.FC<FormProps> = ({ addMemo }) => {
-  const [text, setText] = useState("");
+const Form: React.FC<FormProps> = ({
+  addMemo,
+  editMode = false,
+  currentText = "",
+  updateMemo,
+}) => {
+  const [text, setText] = useState(currentText);
+
+  useEffect(() => {
+    setText(currentText);
+  }, [currentText]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (text.trim()) {
-      addMemo(text);
+      if (editMode && updateMemo) {
+        updateMemo(text);
+      } else {
+        addMemo(text);
+      }
       setText("");
     }
   };
@@ -23,7 +39,7 @@ const Form: React.FC<FormProps> = ({ addMemo }) => {
         onChange={(e) => setText(e.target.value)}
         placeholder="Enter memo"
       ></input>
-      <button type="submit">Add Memo</button>
+      <button type="submit">{editMode ? "Update Memo" : "Add Memo"}</button>
     </form>
   );
 };
