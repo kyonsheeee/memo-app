@@ -32,15 +32,17 @@ const Form: React.FC<FormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Enter memo"
-      ></input>
-      <button type="submit">{editMode ? "Update Memo" : "Add Memo"}</button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Enter memo"
+        ></input>
+        <button type="submit">{editMode ? "Update Memo" : "Add Memo"}</button>
+      </form>
+    </>
   );
 };
 
