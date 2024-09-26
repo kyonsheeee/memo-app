@@ -13,6 +13,7 @@ const App: React.FC = () => {
     const newMemo: Memo = {
       id: Date.now(),
       text,
+      favorite: false,
     };
     setMemos([...memos, newMemo]);
   };
@@ -31,6 +32,14 @@ const App: React.FC = () => {
     setIsEditing(false);
   };
 
+  const toggleFavorite = (id: number) => {
+    setMemos(
+      memos.map((memo) =>
+        memo.id === id ? { ...memo, favorite: !memo.favorite } : memo
+      )
+    );
+  };
+
   return (
     <div className="container">
       <h1>Memo App</h1>
@@ -40,7 +49,7 @@ const App: React.FC = () => {
         currentText={currentMemo ? currentMemo.text : ""}
         updateMemo={(text) => updateMemo(currentMemo!.id, text)}
       />
-      <List memos={memos} deleteMemo={deleteMemo} updateMemo={updateMemo} />
+      <List memos={memos} deleteMemo={deleteMemo} updateMemo={updateMemo} toggleFavorite={toggleFavorite} />
     </div>
   );
 };

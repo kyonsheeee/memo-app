@@ -31,6 +31,11 @@
   margin-right: 10px;
 }
 
+.memo-text.favorite {
+  font-weight: bold;
+  color: goldenrod;
+}
+
 .memo-buttons {
   display: flex;
   gap: 5px;
@@ -50,4 +55,18 @@
   margin-left: 5px;
   padding: 5px;
   cursor: pointer;
+}
+
+.favorite-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: red;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 10px;
+}
+
+.favorite-button:hover {
+  color: lightpink;
 }

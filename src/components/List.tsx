@@ -6,9 +6,10 @@ interface ListProps {
   memos: Memo[];
   deleteMemo: (id: number) => void;
   updateMemo: (id: number, text: string) => void;
+  toggleFavorite: (id: number) => void;
 }
 
-const List: React.FC<ListProps> = ({ memos, deleteMemo, updateMemo }) => {
+const List: React.FC<ListProps> = ({ memos, deleteMemo, updateMemo, toggleFavorite }) => {
   const [editingMemoId, setEditingMemoId] = useState<number | null>(null);
   const [newText, setNewText] = useState<string>("");
 
@@ -43,9 +44,12 @@ const List: React.FC<ListProps> = ({ memos, deleteMemo, updateMemo }) => {
               </div>
             ) : (
               <div className="memo-container">
-                <span className="memo-text">{memo.text}</span>
+                <span className={`memo-text ${memo.favorite ? 'favorite' : ''}`}>{memo.text}</span>
                 <button onClick={() => handleEditClick(memo)}>Edit</button>
                 <button onClick={() => deleteMemo(memo.id)}>Delete</button>
+                <button onClick={() => toggleFavorite(memo.id)} className="favorite-button">
+                  {memo.favorite ? '♥' : '♡'}
+                </button>
               </div>
             )}
           </li>
