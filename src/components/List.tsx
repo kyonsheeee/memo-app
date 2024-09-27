@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Memo } from "../types";
 import "../styles/List.css";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 
 interface ListProps {
   memos: Memo[];
@@ -48,7 +49,7 @@ const List: React.FC<ListProps> = ({ memos, deleteMemo, updateMemo, toggleFavori
                 <button onClick={() => handleEditClick(memo)}>Edit</button>
                 <button onClick={() => deleteMemo(memo.id)}>Delete</button>
                 <button onClick={() => toggleFavorite(memo.id)} className="favorite-button">
-                  {memo.favorite ? '♥' : '♡'}
+                  {memo.favorite ? <HeartFilled /> : <HeartOutlined />}
                 </button>
               </div>
             )}
