@@ -94,6 +94,13 @@ const List: React.FC<ListProps> = ({
                 >
                   {memo.text}
                 </span>
+                <div className="tags-container">
+                  {memo.tags.map((tag, index) => (
+                    <span key={index} className="tag">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
                 <button onClick={() => handleEditClick(memo)}>Edit</button>
                 <button onClick={() => deleteMemo(memo.id)}>Delete</button>
                 <button
