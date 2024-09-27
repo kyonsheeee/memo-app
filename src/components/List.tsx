@@ -6,7 +6,7 @@ import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 interface ListProps {
   memos: Memo[];
   deleteMemo: (id: number) => void;
-  updateMemo: (id: number, text: string) => void;
+  updateMemo: (id: number, text: string, tags: string[]) => void;
   toggleFavorite: (id: number) => void;
 }
 
@@ -18,19 +18,39 @@ const List: React.FC<ListProps> = ({
 }) => {
   const [editingMemoId, setEditingMemoId] = useState<number | null>(null);
   const [newText, setNewText] = useState<string>("");
+  const [newTags, setNewTags] = useState<string[]>([]);
 
   const handleEditClick = (memo: Memo) => {
     setEditingMemoId(memo.id);
     setNewText(memo.text);
+    setNewTags(memo.tags);
   };
 
   const handleSaveClick = (id: number) => {
-    updateMemo(id, newText);
+    updateMemo(id, newText, newTags);
     setEditingMemoId(null);
   };
 
   const handleCancelClick = () => {
     setEditingMemoId(null);
+  };
+
+  const handleTagChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const updatedTags = [...newTags];
+    updatedTags[index] = e.target.value;
+    setNewTags(updatedTags);
+  };
+
+  const handleAddTag = () => {
+    setNewTags([...newTags, ""]);
+  };
+
+  const handleRemoveTag = (index: number) => {
+    const updatedTags = newTags.filter((_, i) => i !== index);
+    setNewTags(updatedTags);
   };
 
   return (
@@ -45,6 +65,25 @@ const List: React.FC<ListProps> = ({
                   value={newText}
                   onChange={(e) => setNewText(e.target.value)}
                 ></input>
+                {newTags.map((tag, index) => (
+                  <div key={index} className="tag-input">
+                    <input
+                      type="text"
+                      placeholder="Enter tag"
+                      value={tag}
+                      onChange={(e) => handleTagChange(e, index)}
+                    ></input>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveTag(index)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+                <button type="button" onClick={handleAddTag}>
+                  Add Tag
+                </button>
                 <button onClick={() => handleSaveClick(memo.id)}>Save</button>
                 <button onClick={handleCancelClick}>Cancel</button>
               </div>

@@ -9,11 +9,12 @@ const App: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [currentMemo, setCurrentMemo] = useState<Memo | null>(null);
 
-  const addMemo = (text: string) => {
+  const addMemo = (text: string, tags: string[]) => {
     const newMemo: Memo = {
       id: Date.now(),
       text,
       favorite: false,
+      tags,
     };
     setMemos([...memos, newMemo]);
   };
@@ -26,8 +27,10 @@ const App: React.FC = () => {
     }
   };
 
-  const updateMemo = (id: number, text: string) => {
-    setMemos(memos.map((memo) => (memo.id === id ? { ...memo, text } : memo)));
+  const updateMemo = (id: number, text: string, tags: string[]) => {
+    setMemos(
+      memos.map((memo) => (memo.id === id ? { ...memo, text, tags } : memo))
+    );
     setCurrentMemo(null);
     setIsEditing(false);
   };
@@ -47,9 +50,15 @@ const App: React.FC = () => {
         addMemo={addMemo}
         editMode={isEditing}
         currentText={currentMemo ? currentMemo.text : ""}
-        updateMemo={(text) => updateMemo(currentMemo!.id, text)}
+        currentTags={currentMemo ? currentMemo.tags : []}
+        updateMemo={(text, tags) => updateMemo(currentMemo!.id, text, tags)}
       />
-      <List memos={memos} deleteMemo={deleteMemo} updateMemo={updateMemo} toggleFavorite={toggleFavorite} />
+      <List
+        memos={memos}
+        deleteMemo={deleteMemo}
+        updateMemo={updateMemo}
+        toggleFavorite={toggleFavorite}
+      />
     </div>
   );
 };
