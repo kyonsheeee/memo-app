@@ -1,0 +1,87 @@
+/* memo-form */
+.memo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  margin-bottom: 20px;
+}
+
+.memo-form input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.memo-form .tag-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.memo-form .tag-input button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.memo-form button[type="button"] {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #d3d3d3;
+  cursor: pointer;
+}
+
+.memo-form button[type="submit"] {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #4caf50;
+  color: #fff;
+  cursor: pointer;
+}
+
+.memo-form button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.tags-container {
+  display: flex;
+  gap: 5px;
+}
+
+.tag {
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  padding: 2px 5px;
+  font-size: 0.9rem;
+}
+
+.tag-input {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.tag-input input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex-grow: 1;
+}
+
+.tag-input button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
