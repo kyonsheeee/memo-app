@@ -10,7 +10,12 @@ interface ListProps {
   toggleFavorite: (id: number) => void;
 }
 
-const List: React.FC<ListProps> = ({ memos, deleteMemo, updateMemo, toggleFavorite }) => {
+const List: React.FC<ListProps> = ({
+  memos,
+  deleteMemo,
+  updateMemo,
+  toggleFavorite,
+}) => {
   const [editingMemoId, setEditingMemoId] = useState<number | null>(null);
   const [newText, setNewText] = useState<string>("");
 
@@ -45,10 +50,17 @@ const List: React.FC<ListProps> = ({ memos, deleteMemo, updateMemo, toggleFavori
               </div>
             ) : (
               <div className="memo-container">
-                <span className={`memo-text ${memo.favorite ? 'favorite' : ''}`}>{memo.text}</span>
+                <span
+                  className={`memo-text ${memo.favorite ? "favorite" : ""}`}
+                >
+                  {memo.text}
+                </span>
                 <button onClick={() => handleEditClick(memo)}>Edit</button>
                 <button onClick={() => deleteMemo(memo.id)}>Delete</button>
-                <button onClick={() => toggleFavorite(memo.id)} className="favorite-button">
+                <button
+                  onClick={() => toggleFavorite(memo.id)}
+                  className="favorite-button"
+                >
                   {memo.favorite ? <HeartFilled /> : <HeartOutlined />}
                 </button>
               </div>
