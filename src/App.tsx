@@ -51,7 +51,9 @@ const App: React.FC = () => {
         editMode={isEditing}
         currentText={currentMemo ? currentMemo.text : ""}
         currentTags={currentMemo ? currentMemo.tags : []}
-        updateMemo={(text, tags) => updateMemo(currentMemo!.id, text, tags)}
+        updateMemo={(text, tags) =>
+          currentMemo && updateMemo(currentMemo.id, text, tags)
+        }
       />
       <List
         memos={memos}

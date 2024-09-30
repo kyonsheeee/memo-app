@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import "../styles/Form.css"
+import axios from "axios";
+import "../styles/Form.css";
 
 interface FormProps {
   addMemo: (text: string, tags: string[]) => void;
   editMode?: boolean;
   currentText?: string;
   currentTags: string[];
-  updateMemo?: (text: string, tags: string[]) => void;
+  updateMemo: (text: string, tags: string[]) => void;
 }
 
 const Form: React.FC<FormProps> = ({
@@ -24,17 +25,20 @@ const Form: React.FC<FormProps> = ({
     setTags(currentTags);
   }, [currentText, currentTags]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (text.trim()) {
-      if (editMode && updateMemo) {
-        updateMemo(text, tags);
-      } else {
-        addMemo(text, tags);
-      }
-      setText("");
-      setTags([]);
+    if (editMode) {
+      updateMemo(text, tags);
+    } else {
+      await axios.post("http://localhost:5000/memos", {
+        text,
+        tags,
+        favorite: false,
+      });
+      addMemo(text, tags);
     }
+    setText("");
+    setTags([]);
   };
 
   const handleTagChange = (
