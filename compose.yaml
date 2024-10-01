@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  frontend:
+    container_name: "frontend-container"
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  backend:
+    container_name: "backend-container"
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=example
+      - DB_NAME=example
+
+  db:
+    container_name: "db-container"
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db/example.sql:/docker-entrypoint-initdb.d/example.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: example
+
+volumes:
+  db_data:
+    driver: local
