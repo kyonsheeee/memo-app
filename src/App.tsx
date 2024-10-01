@@ -9,14 +9,33 @@ const App: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [currentMemo, setCurrentMemo] = useState<Memo | null>(null);
 
-  const addMemo = (text: string, tags: string[]) => {
+  const addMemo = async (text: string, tags: string[]) => {
     const newMemo: Memo = {
       id: Date.now(),
       text,
       favorite: false,
       tags,
     };
-    setMemos([...memos, newMemo]);
+    // setMemos([...memos, newMemo]);
+
+    try {
+      const response = await fetch("http://localhost:5000/api/memos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text, tags }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add memo");
+      }
+
+      const data = await response.json();
+      setMemos([...memos, { ...newMemo, id: data.id }]);
+    } catch (error) {
+      console.error("Error adding memo: ", error);
+    }
   };
 
   const deleteMemo = (id: number) => {
